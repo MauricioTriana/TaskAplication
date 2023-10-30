@@ -1,0 +1,7 @@
+<section class="col-12">
+    <div class="d-flex justify-content-center">
+        <div class="card-deck" *ngFor="let objectData of itemObjects; let i = index">
+            <app-list-item class="m-3 p-3" [objectItem]="objectData"></app-list-item>
+        </div>
+    </div>
+</section>

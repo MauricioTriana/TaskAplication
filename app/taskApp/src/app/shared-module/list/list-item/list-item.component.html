@@ -1,0 +1,13 @@
+
+<div class="card mt-5 m-3 p-3" style="width: 18rem;">
+  <img class="card-img-top"
+    *ngIf="itemObject?.imgDirection"
+    [src]="itemObject?.imgDirection" 
+    alt="Card image cap"
+  >
+  <div class="card-body">
+    <h5 class="card-title">{{itemObject?.title}}</h5>
+    <p class="card-text">{{itemObject?.description}}</p>
+    <a [routerLink]="itemObject?.editRedirection" *ngIf="itemObject?.canEdit" class="btn btn-primary">{{itemObject?.redirectionText}}</a>
+  </div>
+</div>

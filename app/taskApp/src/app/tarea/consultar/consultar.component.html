@@ -1,0 +1,6 @@
+<div class="col-12 col-md-12 d-flex justify-content-center my-5">
+    <button type="button" class="btn btn-primary" (click)="registrarActividad()">Registrar tarea</button>
+</div>
+<div class="mt-5">
+    <app-list-objects *ngIf="tareaObjectList.length > 0" [objectItems]="tareaObjectList"></app-list-objects>
+</div>

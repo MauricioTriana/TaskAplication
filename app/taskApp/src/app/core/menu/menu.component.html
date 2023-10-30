@@ -1,0 +1,39 @@
+<div class="row">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">TaskApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText" *ngIf="isUserloged">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="persona">Personas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="tarea">Tareas</a>
+          </li>
+        </ul>
+        <div class="d-flex justify-content-end" *ngIf="isUserloged">
+          <button type="button" class="btn btn-primary" (click)="sesionClose()">Cerrar Sesion</button>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" *ngIf="!isUserloged">
+      <form [formGroup]="fgLogin" (ngSubmit)="LoginSesion()">
+        <div class="input-group">
+          <span class="input-group-text" id="basic-addon1">CC</span>
+          <input type="text" [class.is-invalid]="getControlLogin('identificacion').invalid" class="form-control" placeholder="Identificacion" aria-label="Username" aria-describedby="basic-addon1" formControlName="identificacion">
+          <span class="input-group-text" id="basic-addon1">Pass</span>
+          <input type="password" [class.is-invalid]="getControlLogin('password').invalid" class="form-control" placeholder="Contraseña" aria-label="Username" aria-describedby="basic-addon1" formControlName="password">
+          <button class="btn btn-primary" [class.disabled]="getControlLogin('password').invalid && getControlLogin('password').invalid" type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </nav>  
+</div> 
+<div class="row justify-content-center alert alert-danger" role="alert" *ngIf="badLogginAttemp">
+  Usuario o contraseña invalida
+</div>
+
+<i class="fa-light fa-square-v"></i>
