@@ -17,25 +17,55 @@ namespace RepositoryLayer.Generic
             this._taskDBContext = new TaskDBContext();
             table = _taskDBContext.Set<T>();
         }
+
         public GenericRepository( TaskDBContext ventaDBContext)
         {
-            this._taskDBContext = ventaDBContext;
-            table = _taskDBContext.Set<T>();
+            try
+            {
+                this._taskDBContext = ventaDBContext;
+                table = _taskDBContext.Set<T>();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public IEnumerable<T> GetAll()
         {
-            return this.table.AsEnumerable();
+            try
+            {
+                return this.table.AsEnumerable();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public T GetById(object id)
         {
-            return this.table.Find(id);
+            try
+            {
+                return this.table.Find(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Insert(T obj)
         {
-            table.Add(obj);
+            try
+            {
+                table.Add(obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Update(T obj)
@@ -45,13 +75,27 @@ namespace RepositoryLayer.Generic
 
         public void Delete(object id)
         {
-            T existing = table.Find(id);
-            table.Remove(existing);
+            try
+            {
+                T existing = table.Find(id);
+                table.Remove(existing);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Save()
         {
-            this._taskDBContext.SaveChanges();
+            try
+            {
+                this._taskDBContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

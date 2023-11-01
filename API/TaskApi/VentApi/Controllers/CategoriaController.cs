@@ -22,13 +22,23 @@ namespace TaskApi.Controllers
         [HttpGet(nameof(GetAll))]
         public IActionResult GetAll()
         {
-            var categoria = _categoriaService.GetAll();
-
-            if (categoria == null)
+            try
             {
-                return NotFound("No hay categorias para mostrar");
+                var categoria = _categoriaService.GetAll();
+
+                if (categoria == null)
+                {
+                    return NotFound("No hay categorias para mostrar");
+                }
+                return Ok(categoria);
             }
-            return Ok(categoria);
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+            
             //string token = "1234sdfg";
             //if (GetJWTContainerModel.ValidateToken(token)) {
             //    var categoria = _categoriaService.GetAll();
@@ -45,36 +55,72 @@ namespace TaskApi.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id = 0)
         {
-            if (id.Equals(0))
+            try
             {
-                return BadRequest("No se envio el Id de la categoria a obtener");
+                if (id.Equals(0))
+                {
+                    return BadRequest("No se envio el Id de la categoria a obtener");
+                }
+
+                var categoria = _categoriaService.GetCategoria(id);
+
+                if (categoria == null)
+                {
+                    return NotFound("No se encontraron registros para el Id de categoria consultado");
+                }
+                return Ok(categoria);
+
             }
-
-            var categoria = _categoriaService.GetCategoria(id);
-
-            if (categoria == null)
+            catch (System.Exception)
             {
-                return NotFound("No se encontraron registros para el Id de categoria consultado");
+                throw;
             }
-            return Ok(categoria);
+            
         }
 
         [HttpPost]
         public void Add([FromBody] Categoria categoria)
         {
-            _categoriaService.Insert(categoria);
+            try
+            {
+                _categoriaService.Insert(categoria);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         [HttpPut("")]
         public void Put([FromBody] Categoria categoria)
         {
-            _categoriaService.Update(categoria);
+            try
+            {
+                _categoriaService.Update(categoria);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _categoriaService.Remove(id);
+            try
+            {
+                _categoriaService.Remove(id);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
         }
 
     }

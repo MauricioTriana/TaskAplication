@@ -21,13 +21,22 @@ namespace TaskApi.Controllers
         [HttpGet(nameof(GetAll))]
         public IActionResult GetAll()
         {
-            var tareas = _tareaService.GetAll();
-
-            if (tareas == null)
+            try
             {
-                return NotFound("No hay tareas para mostrar");
+                var tareas = _tareaService.GetAll();
+
+                if (tareas == null)
+                {
+                    return NotFound("No hay tareas para mostrar");
+                }
+                return Ok(tareas);
             }
-            return Ok(tareas);
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
 
             //string token = "1234sdfg";
             //if (GetJWTContainerModel.ValidateToken(token)) {
@@ -45,36 +54,72 @@ namespace TaskApi.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id = 0)
         {
-            if (id.Equals(0))
+            try
             {
-                return BadRequest("No se envio el Id de la tarea a obtener");
+                if (id.Equals(0))
+                {
+                    return BadRequest("No se envio el Id de la tarea a obtener");
+                }
+
+                var tarea = _tareaService.GetTarea(id);
+
+                if (tarea == null)
+                {
+                    return NotFound("No se encontraron registros para el Id de tarea consultada");
+                }
+                return Ok(tarea);
             }
-
-            var tarea = _tareaService.GetTarea(id);
-
-            if (tarea == null)
+            catch (System.Exception)
             {
-                return NotFound("No se encontraron registros para el Id de tarea consultada");
+
+                throw;
             }
-            return Ok(tarea);
+            
         }
 
         [HttpPost]
         public void Add([FromBody] Tarea tarea)
         {
-            _tareaService.Insert(tarea);
+            try
+            {
+                _tareaService.Insert(tarea);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         [HttpPut("")]
         public void Put([FromBody] Tarea tarea)
         {
-            _tareaService.Update(tarea);
+            try
+            {
+                _tareaService.Update(tarea);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _tareaService.Remove(id);
+            try
+            {
+                _tareaService.Remove(id);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
         }
 
     }

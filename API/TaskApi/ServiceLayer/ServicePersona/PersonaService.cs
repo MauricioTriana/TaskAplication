@@ -19,42 +19,104 @@ namespace ServiceLayer.ServicePersona
 
         public IEnumerable<Persona> GetAll()
         {
-            return _genericRepository.GetAll();
+            try
+            {
+                return _genericRepository.GetAll();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            
         }
 
         public Persona GetPersona(int id)
         {
-            return _genericRepository.GetById(id);
+            try
+            {
+                return _genericRepository.GetById(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public Boolean Login(string id, string pass)
         {
-            Persona persona = _genericRepository.GetAll().Where(x => x.Cedula.Equals(id)).FirstOrDefault();
-            return (persona != null) && (!string.IsNullOrEmpty(persona.Clave) && persona.Clave.Equals(pass));
+            try
+            {
+                Persona persona = _genericRepository.GetAll().Where(x => x.Cedula.Equals(id)).FirstOrDefault();
+                return (persona != null) && (!string.IsNullOrEmpty(persona.Clave) && persona.Clave.Equals(pass));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Insert(Persona entity)
         {
-            _genericRepository.Insert(entity);
-            _genericRepository.Save();
+            try
+            {
+                _genericRepository.Insert(entity);
+                _genericRepository.Save();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public void Update(Persona entity)
         {
-            _genericRepository.Update(entity);
-            _genericRepository.Save();
+            try
+            {
+                _genericRepository.Update(entity);
+                _genericRepository.Save();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public void Remove(int id)
         {
-            _genericRepository.Delete(id);
-            _genericRepository.Save();
+            try
+            {
+                _genericRepository.Delete(id);
+                _genericRepository.Save();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public Persona GetPersonaByIdentificacion(string id)
         {
-            Persona persona = _genericRepository.GetAll().Where(x => x.Cedula.Equals(id)).FirstOrDefault();
-            return persona;
+            try
+            {
+                Persona persona = _genericRepository.GetAll().Where(x => x.Cedula.Equals(id)).FirstOrDefault();
+                return persona;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

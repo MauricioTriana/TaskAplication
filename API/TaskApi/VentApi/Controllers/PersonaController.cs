@@ -73,52 +73,98 @@ namespace TaskApi.Controllers
         [HttpGet("identificacion/{id}")]
         public ActionResult GetByIdentification(string id)
         {
-            if (id.Equals(0))
+            try
             {
-                return BadRequest("No se envio el Id del Persona a obtener");
+                if (id.Equals(0))
+                {
+                    return BadRequest("No se envio el Id del Persona a obtener");
+                }
+
+                var persona = _personaService.GetPersonaByIdentificacion(id);
+
+                if (persona == null)
+                {
+                    return NotFound("No se encontro valores pa ra el Id de Persona consultado");
+                }
+                return Ok(persona);
             }
-
-            var persona = _personaService.GetPersonaByIdentificacion(id);
-
-            if (persona == null)
+            catch (Exception)
             {
-                return NotFound("No se encontro valores pa ra el Id de Persona consultado");
+
+                throw;
             }
-            return Ok(persona);
+            
         }
 
         [HttpGet("identificacion/{id}/pass/{password}")]
         public ActionResult Login(string id, string password)
         {
-            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(password))
+            try
             {
-                return BadRequest("No se envio completa la informacion de login");
+                if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(password))
+                {
+                    return BadRequest("No se envio completa la informacion de login");
+                }
+
+                bool exits = _personaService.Login(id, password);
+
+                return Ok(exits);
+
             }
+            catch (Exception)
+            {
 
-            bool exits = _personaService.Login(id, password);
-
-            return Ok(exits);
+                throw;
+            }
+            
         }
 
 
         [HttpPost]
         public void Add([FromBody] Persona Persona)
         {
-            _personaService.Insert(Persona);
+            try
+            {
+                _personaService.Insert(Persona);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         // PUT api/<ProductController>/5
         [HttpPut("")]
         public void Put([FromBody] Persona Persona)
         {
-            _personaService.Update(Persona);
+            try
+            {
+                _personaService.Update(Persona);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _personaService.Remove(id);
+            try
+            {
+                _personaService.Remove(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
     }

@@ -19,30 +19,75 @@ namespace ServiceLayer.ServiceTarea
 
         public IEnumerable<Tarea> GetAll()
         {
-            return _genericRepository.GetAll();
+            try
+            {
+                return _genericRepository.GetAll();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public Tarea GetTarea(int id)
         {
-            return _genericRepository.GetById(id);
+            try
+            {
+                return _genericRepository.GetById(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public void Insert(Tarea entity)
         {
-            _genericRepository.Insert(entity);
-            _genericRepository.Save();
+            try
+            {
+                _genericRepository.Insert(entity);
+                _genericRepository.Save();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public void Update(Tarea entity)
         {
-            _genericRepository.Update(entity);
-            _genericRepository.Save();
+            try
+            {
+                _genericRepository.Update(entity);
+                _genericRepository.Save();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public void Remove(int id)
         {
-            _genericRepository.Delete(id);
-            _genericRepository.Save();
+            try
+            {
+                _genericRepository.Delete(id);
+                _genericRepository.Save();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
