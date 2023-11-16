@@ -3,6 +3,50 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "task-lib": {
+      "projectType": "library",
+      "root": "projects/task-lib",
+      "sourceRoot": "projects/task-lib/src",
+      "prefix": "task-app",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "outputs": [
+            "dist/projects/task-lib"
+          ],
+          "options": {
+            "project": "projects/task-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/task-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/task-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/task-lib/src/test.ts",
+            "tsConfig": "projects/task-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/task-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/task-lib/**/*.ts",
+              "projects/task-lib/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "taskApp": {
       "projectType": "application",
       "schematics": {
@@ -109,6 +153,5 @@
         }
       }
     }
-  },
-  "defaultProject": "taskApp"
+  }
 }
